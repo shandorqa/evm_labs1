@@ -1,0 +1,35 @@
+const int redPin = 0;   
+const int yellowPin = 5; 
+const int greenPin = 9;  
+
+const unsigned long redDuration = 2000;    
+const unsigned long yellowDuration = 2000; 
+const unsigned long greenDuration = 2000;   
+
+unsigned long previousMillis = 0;  
+int currentLight = redPin;         
+
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(yellowPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  
+  digitalWrite(redPin, HIGH);
+}
+
+void loop() {
+  unsigned long currentMillis = millis(); 
+
+  if (currentMillis - previousMillis >= redDuration) {
+    previousMillis = currentMillis;
+    digitalWrite(currentLight, LOW);
+    if (currentLight == redPin) {
+      currentLight = yellowPin;
+    } else if (currentLight == yellowPin) {
+      currentLight = greenPin;
+    } else {
+      currentLight = redPin;
+    }
+    digitalWrite(currentLight, HIGH);
+  }
+}
